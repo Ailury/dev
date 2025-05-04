@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+script_dir="$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)"
+
+src_kbm=./resources/real-prog-no-qwerty
+dest_kbm=/usr/share/X11/xkb/symbols
+
+if [ ! -f /usr/share/X11/xkb/symbols/real-prog-qwerty ] || ! cmp -s $src_kbm $dest_kbm/real-prog-qwerty; then
+	echo "$src_kbm doesn't exist, copying over"
+	sudo cp $src_kbm $dest_kbm
+else
+	echo "real-prog exists"
+fi
+
+
+if grep -q "real-prog-no-qwerty" /usr/share/X11/xkb/rules/evdev.xml; then
+	echo "evdev.xml already has real-prog-no-qwerty layout definition"
+	exit 0
+fi
+
+qwerty_env="
+<layout>
+      <configItem>
+        <name>real-prog-layout-no</name>
+        <shortDescription>rpgno</shortDescription>
+        <description>Qwerty Norwegian (NO)</description>
+      </configItem>
+      <variantList>
+	<variant>
+	    <configItem>
+		<name>real-prog-no-qwerty</name>
+		<description>Norwegian (Real Programmers Qwerty)</description>
+		<vendor>Ailury</vendor>
+	    </configItem>
+	</variant>
+      </variantList>
+</layout>
+"
+
+layout_list=$(cat /usr/share/X11/xkb/rules/evdev.xml | grep "<layoutList>" -n  | cut -f1 -d:)
+total_lines=$(cat /usr/share/X11/xkb/rules/evdev.xml | wc -l)
+tail_lines=$(($total_lines - $layout_list))
+
+up_to=$(cat /usr/share/X11/xkb/rules/evdev.xml | head -$layout_list)
+remaining=$(cat /usr/share/X11/xkb/rules/evdev.xml | tail -$tail_lines)
+
+msg="$up_to
+$qwerty_env
+$remaining
+"
+
+echo "keyboard: $msg"
+echo $msg | sudo tee /usr/share/X11/xkb/rules/evdev.xml
+echo "don't forget to log out to let these changes take effect"
