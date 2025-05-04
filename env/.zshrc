@@ -29,15 +29,18 @@ setopt hist_find_no_dups
 # Options
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 
-source /home/m/.zsh/powerlevel10k/powerlevel10k.zsh-theme
-source /home/m/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /home/m/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 autoload -U compinit; compinit
 
 alias cd=z
 alias ls='ls --color'
 alias vim=nvim
+alias gs='git status'
+alias gcm='git commit -m'
+alias gp='git push'
 
 # Where should I put you?
 bindkey -s ^f "tmux-sessionizer\n"

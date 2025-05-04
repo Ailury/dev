@@ -54,5 +54,6 @@ copy_file() {
 
 
 copy_dir ./env/.config $HOME/.config
+copy_file ./env/.zshrc $HOME/.zshrc
 copy_dir ./env/.local $HOME/.local
 #copy_file .specialconfig $HOME
