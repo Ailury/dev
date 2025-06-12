@@ -9,6 +9,16 @@ return {
         desc = "Find Plugin File",
       },
       {
+        "<leader>fg",
+        function() require("telescope.builtin").git_files() end,
+        desc = "Find Git File",
+      },
+      {
+        "<leader>fa",
+        function() require("telescope.builtin").find_files({ hidden = true, no_ignore = true }) end,
+        desc = "Find All Files",
+      },
+      {
         "<leader>sp",
         function()
           local files = {} ---@type table<string, string>
@@ -35,7 +45,7 @@ return {
     opts = {
       defaults = {
         layout_strategy = "horizontal",
-        layout_config = { prompt_position = "top" },
+        layout_config = { prompt_position = "bottom" },
         sorting_strategy = "ascending",
         winblend = 0,
       },
