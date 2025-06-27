@@ -70,5 +70,5 @@ addToPathFront $HOME/.local/npm/bin
 addToPathFront $HOME/.local/n/bin/
 export N_PREFIX="$HOME/.n"
 
-
+eval "$(uv generate-shell-completion zsh)"
 eval "$(zoxide init zsh)"
