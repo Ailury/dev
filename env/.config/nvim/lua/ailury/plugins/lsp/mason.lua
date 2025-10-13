@@ -48,6 +48,7 @@ return {
                 "stylua",   -- lua formatter
                 "isort",    -- python formatter
                 "pylint",
+                "ruff",
                 "clangd",
                 "denols",
                 -- { 'eslint_d', version = '13.1.2' },
