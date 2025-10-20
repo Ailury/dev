@@ -1,0 +1,8 @@
+[tools]
+go = "latest"
+gopass = "latest"
+k9s = "latest"
+neovim = "0.11"
+node = "latest"
+python = "3.12"
+yazi = "latest"
